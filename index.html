@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Milpitas Community Musallah</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Times</title>
+    <script>
+        // This function fetches the prayer times from the API
+        async function fetchPrayerTimes() {
+            // Example of fetching prayer times from an external API
+            const response = await fetch('https://api.example.com/prayer-times');
+            const data = await response.json();
+
+            // Assuming the API returns times in a specific format
+            const prayerTimes = {
+                Fajr: '6:05 AM',
+                Dhuhr: '12:30 PM',
+                Asr: '4:45 PM',
+                Maghrib: data.maghrib,
+                Isha: '8:00 PM'
+            };
+
+            updatePrayerTimes(prayerTimes);
+        }
+
+        // This function updates the prayer times displayed on the webpage
+        function updatePrayerTimes(times) {
+            document.getElementById('fajr').innerText = times.Fajr;
+            document.getElementById('dhuhr').innerText = times.Dhuhr;
+            document.getElementById('asr').innerText = times.Asr;
+            document.getElementById('maghrib').innerText = times.Maghrib;
+            document.getElementById('isha').innerText = times.Isha;
+        }
+
+        // Call the fetch function on page load
+        window.onload = fetchPrayerTimes;
+    </script>
 </head>
 <body>
     <h1>Prayer Times</h1>
     <ul>
-        <li>Fajr: 6:05 AM</li>
-        <li>Dhuhr: 12:30 PM (Iqamah: 1:30 PM on Jumu'ah)</li>
-        <li>Asr: 4:45 PM</li>
-        <li>Maghrib: (same as adhan)</li>
-        <li>Isha: 8:00 PM</li>
+        <li>Fajr: <span id="fajr"></span></li>
+        <li>Dhuhr: <span id="dhuhr"></span></li>
+        <li>Asr: <span id="asr"></span></li>
+        <li>Maghrib: <span id="maghrib"></span></li>
+        <li>Isha: <span id="isha"></span></li>
     </ul>
-    <script>
-        // Fetch and update adhan times from the API
-        fetch('API_URL_HERE')
-            .then(response => response.json())
-            .then(data => {
-                // Update the Maghrib adhan time
-                document.querySelector('li:nth-child(4)').innerText = 'Maghrib: ' + data.maghrib_time;
-            });
-    </script>
 </body>
 </html>
