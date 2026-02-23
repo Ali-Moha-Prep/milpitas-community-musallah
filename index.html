@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Milpitas Community Musallah</title>
-</head>
-<body>
-    <h1>Welcome to the Milpitas Community Musallah</h1>
-    <p>This page is under construction.</p>
-</body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div class="logo-wrapper">
+          <!-- Replace logo.png with your actual logo file name -->
+          <img src="logo.png" alt="Milpitas Community Musallah Logo" class="logo" />
+        </div>
+        <div class="title-wrapper">
+          <h1>Milpitas Community Musallah</h1>
+          <p class="tagline">A place for prayer, community, and connection</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section-prayer-times">
+        <div class="container">
+          <h2>Prayer Times</h2>
+          <p class="section-note">
+            <!-- Replace this line with any short note about how often timings are updated -->
+            Timings are updated regularly. Please refer to the latest schedule below.
+          </p>
+          <!--
+            Update the rows in this table with your actual timings.
+            You can add/remove rows as needed (e.g., Taraweeh in Ramadan).
+          -->
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Prayer</th>
+                  <th>Adhan</th>
+                  <th>Iqamah</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fajr</td>
+                  <td>5:19 AM</td>
+                  <td>6:05 AM</td>
+                </tr>
+                <tr>
+                  <td>Dhuhr</td>
+                  <td>12:22 PM</td>
+                  <td>12:30 PM</td>
+                </tr>
+                <tr>
+                  <td>Asr</td>
+                  <td>4:15 PM</td>
+                  <td>4:45 PM</td>
+                </tr>
+                <tr>
+                  <td>Maghrib</td>
+                  <td>Sunset</td>
+                  <td>+5 minutes</td>
+                </tr>
+                <tr>
+                  <td>Isha</td>
+                  <td>7:23 PM</td>
+                  <td>8:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Jumu'ah</td>
+                  <td>12:21 PM</td>
+                  <td>1:30 PM</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-donation">
+        <div class="container donation-layout">
+          <div>
+            <h2>Support the Musallah</h2>
+            <p class="donation-message">
+              <strong>Donate generously!</strong> Your contributions help maintain the musallah, support
+              programs, and serve the local community.
+            </p>
+            <ul class="donation-list">
+              <li>Zelle: <span class="highlight">[Your Zelle ID / Email]</span></li>
+              <!-- Add any additional donation options if you have them -->
+            </ul>
+          </div>
+          <div class="donation-qr-wrapper">
+            <!-- Replace donation-qr.png with your actual Zelle QR/scanner image file name -->
+            <img src="donation-qr.png" alt="Zelle Donation QR Code" class="donation-qr" />
+            <p class="donation-caption">Scan to donate via Zelle</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-location">
+        <div class="container">
+          <h2>Location</h2>
+          <!-- Replace the placeholder address below with the actual musallah address -->
+          <p class="address">
+            90 Dempsey Rd, Milpitas, CA 95035
+          </p>
+          <p class="section-note">
+            <!-- Optional: add parking / entrance notes here -->
+            Entrance and parking details can be added here.
+          </p>
+          <!--
+            Optional: When you have the exact address, you can generate an embedded Google Map
+            and paste the iframe here instead of (or in addition to) the link below.
+          -->
+          <a
+            href="https://maps.app.goo.gl/tqur8Z7AS14meRub6"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link"
+          >
+            Open in Google Maps
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>&copy; <span id="year"></span> Milpitas Community Musallah. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
+
