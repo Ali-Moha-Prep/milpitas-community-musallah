@@ -25,13 +25,8 @@
         <div class="container">
           <h2>Prayer Times</h2>
           <p class="section-note">
-            <!-- Replace this line with any short note about how often timings are updated -->
-            Timings are updated regularly. Please refer to the latest schedule below.
+            Timings are updated daily for Milpitas, CA using the 18-degree angle calculation method (Muslim World League).
           </p>
-          <!--
-            Update the rows in this table with your actual timings.
-            You can add/remove rows as needed (e.g., Taraweeh in Ramadan).
-          -->
           <div class="table-wrapper">
             <table>
               <thead>
@@ -41,40 +36,16 @@
                   <th>Iqamah</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="prayer-times-body">
                 <tr>
-                  <td>Fajr</td>
-                  <td>5:19 AM</td>
-                  <td>6:05 AM</td>
-                </tr>
-                <tr>
-                  <td>Dhuhr</td>
-                  <td>12:22 PM</td>
-                  <td>12:30 PM</td>
-                </tr>
-                <tr>
-                  <td>Asr</td>
-                  <td>4:15 PM</td>
-                  <td>4:45 PM</td>
-                </tr>
-                <tr>
-                  <td>Maghrib</td>
-                  <td>Sunset</td>
-                  <td>+5 minutes</td>
-                </tr>
-                <tr>
-                  <td>Isha</td>
-                  <td>7:23 PM</td>
-                  <td>8:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Jumu'ah</td>
-                  <td>12:21 PM</td>
-                  <td>1:30 PM</td>
+                  <td colspan="3" style="text-align: center; padding: 20px;">Loading prayer times...</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <p class="section-note" style="margin-top: 10px; font-size: 0.9em;">
+            <em>Last updated: <span id="last-updated">--</span></em>
+          </p>
         </div>
       </section>
 
@@ -135,9 +106,100 @@
     <script>
       // Set current year in footer
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Fetch prayer times from Aladhan API (18-degree angle - Muslim World League)
+      async function fetchPrayerTimes() {
+        try {
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = String(today.getMonth() + 1).padStart(2, '0');
+          const date = String(today.getDate()).padStart(2, '0');
+
+          // Milpitas, CA coordinates: 37.4128° N, 121.9949° W
+          // Method 3 = Muslim World League (18-degree angle for Fajr and Isha)
+          const url = `https://api.aladhan.com/v1/timings/${date}-${month}-${year}?latitude=37.4128&longitude=-121.9949&method=3&midnightMode=Standard&school=1`;
+
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (data.code === 200) {
+            const timings = data.data.timings;
+
+            // Format time to 12-hour format
+            function formatTime(time24) {
+              const [hours, minutes] = time24.split(':');
+              let hours12 = parseInt(hours);
+              const ampm = hours12 >= 12 ? 'PM' : 'AM';
+              hours12 = hours12 % 12 || 12;
+              return `${hours12}:${minutes} ${ampm}`;
+            }
+
+            // Calculate Iqamah times (typically 10-15 minutes after Adhan)
+            const prayerData = [
+              { name: 'Fajr', adhan: timings.Fajr, iqamahOffset: 15 },
+              { name: 'Dhuhr', adhan: timings.Dhuhr, iqamahOffset: 10 },
+              { name: 'Asr', adhan: timings.Asr, iqamahOffset: 10 },
+              { name: 'Maghrib', adhan: timings.Maghrib, iqamahOffset: 5 },
+              { name: 'Isha', adhan: timings.Isha, iqamahOffset: 15 },
+              { name: 'Jumu\'ah', adhan: timings.Dhuhr, iqamahOffset: 40 } // Jumu'ah typically 40 minutes after Dhuhr Adhan
+            ];
+
+            function calculateIqamah(time24, offsetMinutes) {
+              const [hours, minutes] = time24.split(':').map(Number);
+              const totalMinutes = hours * 60 + minutes + offsetMinutes;
+              const newHours = Math.floor(totalMinutes / 60) % 24;
+              const newMinutes = totalMinutes % 60;
+              return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
+            }
+
+            const tbody = document.getElementById('prayer-times-body');
+            tbody.innerHTML = '';
+
+            prayerData.forEach(prayer => {
+              const iqamah = calculateIqamah(prayer.adhan, prayer.iqamahOffset);
+              const row = `
+                <tr>
+                  <td>${prayer.name}</td>
+                  <td>${formatTime(prayer.adhan)}</td>
+                  <td>${formatTime(iqamah)}</td>
+                </tr>
+              `;
+              tbody.innerHTML += row;
+            });
+
+            // Update last updated timestamp
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', { 
+              month: 'short', 
+              day: 'numeric', 
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            });
+            document.getElementById('last-updated').textContent = timeString;
+
+          } else {
+            throw new Error('Failed to fetch prayer times');
+          }
+        } catch (error) {
+          console.error('Error fetching prayer times:', error);
+          const tbody = document.getElementById('prayer-times-body');
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="3" style="text-align: center; color: red; padding: 20px;">
+                Unable to load prayer times. Please try refreshing the page.
+              </td>
+            </tr>
+          `;
+        }
+      }
+
+      // Fetch prayer times when page loads
+      fetchPrayerTimes();
+
+      // Refresh prayer times every 24 hours
+      setInterval(fetchPrayerTimes, 24 * 60 * 60 * 1000);
     </script>
   </body>
 </html>
-
-
-
