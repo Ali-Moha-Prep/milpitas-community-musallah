@@ -1,49 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prayer Times</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milpitas Community Musallah</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div class="logo-wrapper">
+          <!-- Replace logo.png with your actual logo file name -->
+          <img src="logo.png.jpeg" alt="Milpitas Community Musallah Logo" class="logo" />
+        </div>
+        <div class="title-wrapper">
+          <h1>Milpitas Community Musallah</h1>
+          <p class="tagline">A place for prayer, community, and connection</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section-prayer-times">
+        <div class="container">
+          <h2>Prayer Times</h2>
+          <p class="section-note">
+            <!-- Replace this line with any short note about how often timings are updated -->
+            Timings are updated regularly. Please refer to the latest schedule below.
+          </p>
+          <!--
+            Update the rows in this table with your actual timings.
+            You can add/remove rows as needed (e.g., Taraweeh in Ramadan).
+          -->
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Prayer</th>
+                  <th>Adhan</th>
+                  <th>Iqamah</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fajr</td>
+                  <td id="adhan-fajr">—</td>
+                  <td id="iqamah-fajr">6:05 AM</td>
+                </tr>
+                <tr>
+                  <td>Dhuhr</td>
+                  <td id="adhan-dhuhr">—</td>
+                  <td id="iqamah-dhuhr">12:30 PM</td>
+                </tr>
+                <tr>
+                  <td>Asr</td>
+                  <td id="adhan-asr">—</td>
+                  <td id="iqamah-asr">4:45 PM</td>
+                </tr>
+                <tr>
+                  <td>Maghrib</td>
+                  <td id="adhan-maghrib">—</td>
+                  <td id="iqamah-maghrib">+5 minutes</td>
+                </tr>
+                <tr>
+                  <td>Isha</td>
+                  <td id="adhan-isha">—</td>
+                  <td id="iqamah-isha">8:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Jumu'ah</td>
+                  <td id="adhan-jumuah">—</td>
+                  <td id="iqamah-jumuah">1:30 PM</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-note prayer-times-note">Adhan times from API. Iqamah times are set by the musallah.</p>
+        </div>
+      </section>
+
+      <section class="section section-donation">
+        <div class="container donation-layout">
+          <div>
+            <h2>Support the Musallah</h2>
+            <p class="donation-message">
+              <strong>Donate generously!</strong> Your contributions help maintain the musallah, support
+              programs, and serve the local community.
+            </p>
+            <ul class="donation-list">
+              <li>Zelle: <span class="highlight">[Your Zelle ID / Email]</span></li>
+              <!-- Add any additional donation options if you have them -->
+            </ul>
+          </div>
+          <div class="donation-qr-wrapper">
+            <!-- Replace donation-qr.png with your actual Zelle QR/scanner image file name -->
+            <img src="donation-qr.png.jpeg" alt="Zelle Donation QR Code" class="donation-qr" />
+            <p class="donation-caption">Scan to donate via Zelle</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-location">
+        <div class="container">
+          <h2>Location</h2>
+          <!-- Replace the placeholder address below with the actual musallah address -->
+          <p class="address">
+            90 Dempsey Rd, Milpitas, CA 95035
+          </p>
+          <p class="section-note">
+            <!-- Optional: add parking / entrance notes here -->
+            Entrance and parking details can be added here.
+          </p>
+          <!--
+            Optional: When you have the exact address, you can generate an embedded Google Map
+            and paste the iframe here instead of (or in addition to) the link below.
+          -->
+          <a
+            href="https://maps.app.goo.gl/tqur8Z7AS14meRub6"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link"
+          >
+            Open in Google Maps
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>&copy; <span id="year"></span> Milpitas Community Musallah. All rights reserved.</p>
+      </div>
+    </footer>
+
     <script>
-        // This function fetches the prayer times from the API
-        async function fetchPrayerTimes() {
-            // Example of fetching prayer times from an external API
-            const response = await fetch('https://api.example.com/prayer-times');
-            const data = await response.json();
+      // Set current year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-            // Assuming the API returns times in a specific format
-            const prayerTimes = {
-                Fajr: '6:05 AM',
-                Dhuhr: '12:30 PM',
-                Asr: '4:45 PM',
-                Maghrib: data.maghrib,
-                Isha: '8:00 PM'
-            };
+      // ——— Prayer times: Adhan from API, Iqamah fixed by musallah ———
+      const IQAMAH = {
+        Fajr: '6:05 AM',
+        Dhuhr: '12:30 PM',
+        Asr: '4:45 PM',
+        Maghrib: '+5 minutes',
+        Isha: '8:00 PM',
+        Jumuah: '1:30 PM'
+      };
 
-            updatePrayerTimes(prayerTimes);
+      function format24to12(time24) {
+        if (!time24 || time24.length < 5) return time24;
+        const [h, m] = time24.split(':').map(Number);
+        const period = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + period;
+      }
+
+      function setPrayerCell(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      async function fetchPrayerTimes() {
+        const params = new URLSearchParams({
+          city: 'Milpitas',
+          country: 'United States',
+          state: 'California',
+          method: '2' // Islamic Society of North America
+        });
+        const url = 'https://api.aladhan.com/v1/timingsByCity?' + params.toString();
+
+        try {
+          const res = await fetch(url);
+          const json = await res.json();
+          const t = json?.data?.timings;
+          if (!t) throw new Error('Invalid response');
+
+          setPrayerCell('adhan-fajr', format24to12(t.Fajr));
+          setPrayerCell('adhan-dhuhr', format24to12(t.Dhuhr));
+          setPrayerCell('adhan-asr', format24to12(t.Asr));
+          setPrayerCell('adhan-maghrib', format24to12(t.Maghrib));
+          setPrayerCell('adhan-isha', format24to12(t.Isha));
+          setPrayerCell('adhan-jumuah', format24to12(t.Dhuhr));
+
+          setPrayerCell('iqamah-fajr', IQAMAH.Fajr);
+          setPrayerCell('iqamah-dhuhr', IQAMAH.Dhuhr);
+          setPrayerCell('iqamah-asr', IQAMAH.Asr);
+          setPrayerCell('iqamah-maghrib', IQAMAH.Maghrib);
+          setPrayerCell('iqamah-isha', IQAMAH.Isha);
+          setPrayerCell('iqamah-jumuah', IQAMAH.Jumuah);
+        } catch (e) {
+          setPrayerCell('adhan-fajr', '5:19 AM');
+          setPrayerCell('adhan-dhuhr', '12:22 PM');
+          setPrayerCell('adhan-asr', '4:15 PM');
+          setPrayerCell('adhan-maghrib', 'Sunset');
+          setPrayerCell('adhan-isha', '7:23 PM');
+          setPrayerCell('adhan-jumuah', '12:21 PM');
+          setPrayerCell('iqamah-fajr', IQAMAH.Fajr);
+          setPrayerCell('iqamah-dhuhr', IQAMAH.Dhuhr);
+          setPrayerCell('iqamah-asr', IQAMAH.Asr);
+          setPrayerCell('iqamah-maghrib', IQAMAH.Maghrib);
+          setPrayerCell('iqamah-isha', IQAMAH.Isha);
+          setPrayerCell('iqamah-jumuah', IQAMAH.Jumuah);
         }
+      }
 
-        // This function updates the prayer times displayed on the webpage
-        function updatePrayerTimes(times) {
-            document.getElementById('fajr').innerText = times.Fajr;
-            document.getElementById('dhuhr').innerText = times.Dhuhr;
-            document.getElementById('asr').innerText = times.Asr;
-            document.getElementById('maghrib').innerText = times.Maghrib;
-            document.getElementById('isha').innerText = times.Isha;
-        }
-
-        // Call the fetch function on page load
-        window.onload = fetchPrayerTimes;
+      fetchPrayerTimes();
     </script>
-</head>
-<body>
-    <h1>Prayer Times</h1>
-    <ul>
-        <li>Fajr: <span id="fajr"></span></li>
-        <li>Dhuhr: <span id="dhuhr"></span></li>
-        <li>Asr: <span id="asr"></span></li>
-        <li>Maghrib: <span id="maghrib"></span></li>
-        <li>Isha: <span id="isha"></span></li>
-    </ul>
-</body>
+  </body>
 </html>
+
