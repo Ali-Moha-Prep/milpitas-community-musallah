@@ -6,7 +6,7 @@
     <title>Milpitas Community Masjid</title>
     <meta name="description" content="Milpitas Community Masjid - Daily prayer times, Jumu'ah, and community services at 90 Dempsey Rd, Milpitas, CA 95035." />
     <meta property="og:title" content="Milpitas Community Masjid" />
-    <meta property="og:description" content="A place for prayer, community, and connection. View daily prayer times and support the musallah." />
+    <meta property="og:description" content="A place for prayer, community, and connection. View daily prayer times and support the masjid." />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -14,11 +14,19 @@
     <header class="site-header">
       <div class="container header-content">
         <div class="logo-wrapper">
-          <img src="logo.png.jpeg" alt="Milpitas Community Musallah Logo" class="logo" />
+          <img src="logo.png.jpeg" alt="Milpitas Community Masjid Logo" class="logo" />
         </div>
         <div class="title-wrapper">
           <h1>Milpitas Community Masjid</h1>
           <p class="tagline">A place for prayer, community, and connection</p>
+        </div>
+      </div>
+      <div class="announcement-banner" aria-label="Announcement">
+        <div class="announcement-track">
+          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner.</span>
+          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner.</span>
+          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner.</span>
+          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner.</span>
         </div>
       </div>
     </header>
@@ -26,17 +34,20 @@
     <main>
       <section class="section section-prayer-times">
         <div class="container">
-          <h2>Prayer Times</h2>
+          <div class="prayer-header">
+            <h2>Prayer Times</h2>
+            <span class="prayer-date" id="prayer-date"></span>
+          </div>
           <p class="section-note">
-            Adhan times are updated live daily. Iqamah times are set by the musallah.
+            Adhan times are updated live daily. Iqamah times are set by the masjid.
           </p>
           <div class="table-wrapper">
             <table>
               <thead>
                 <tr>
-                  <th>Prayer</th>
-                  <th>Adhan</th>
-                  <th>Iqamah</th>
+                  <th scope="col">Prayer</th>
+                  <th scope="col">Adhan</th>
+                  <th scope="col">Iqamah</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,7 +76,7 @@
                   <td id="adhan-isha">—</td>
                   <td id="iqamah-isha">8:00 PM</td>
                 </tr>
-                <tr>
+                <tr class="jumuah-row">
                   <td>Jumu'ah</td>
                   <td id="adhan-jumuah">—</td>
                   <td id="iqamah-jumuah">1:30 PM</td>
@@ -73,32 +84,35 @@
               </tbody>
             </table>
           </div>
-          <p class="section-note prayer-times-note" id="prayer-date"></p>
         </div>
       </section>
 
       <section class="section section-donation">
-        <div class="container donation-layout">
-          <div>
-            <h2>Support the Musallah</h2>
-            <p class="donation-message">
-              <strong>Donate generously!</strong> Your contributions help maintain the musallah, support
-              programs, and serve the local community.
-            </p>
-            <ul class="donation-list">
-              <li>Zelle: <span class="highlight">90dempsey@gmail.com</span></li>
-              <li>Check: <span class="highlight">Write a check to MCM</span></li>
-            </ul>
+        <div class="container">
+          <h2>Support the Masjid</h2>
+          <div class="donation-card">
+            <div class="donation-layout">
+              <div class="donation-info">
+                <p class="donation-message">
+                  <strong>Donate generously!</strong> Your contributions help maintain the masjid, support
+                  programs, and serve the local community.
+                </p>
+                <ul class="donation-list">
+                  <li>Zelle: <span class="highlight">90dempsey@gmail.com</span></li>
+                  <li>Check: <span class="highlight">Write a check to MCM</span></li>
+                </ul>
+              </div>
+              <div class="donation-qr-wrapper">
+                <img src="donation-qr.png.jpeg" alt="Zelle Donation QR Code" class="donation-qr" />
+                <p class="donation-caption">Scan to donate via Zelle</p>
+              </div>
+            </div>
             <p class="tax-deductible-notice">
               Donations are tax deductible! Taxpayer ID # 88-2365109
             </p>
             <p class="standalone-note">
               This is a standalone masjid and is not backed by any organization.
             </p>
-          </div>
-          <div class="donation-qr-wrapper">
-            <img src="donation-qr.png.jpeg" alt="Zelle Donation QR Code" class="donation-qr" />
-            <p class="donation-caption">Scan to donate via Zelle</p>
           </div>
         </div>
       </section>
@@ -117,7 +131,7 @@
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.2!2d-121.9!3d37.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z90+Dempsey+Rd+Milpitas+CA!5e0!3m2!1sen!2sus!4v1700000000000"
               width="100%"
               height="250"
-              style="border:0; border-radius: 18px;"
+              style="border:0;"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
@@ -138,7 +152,8 @@
 
     <footer class="site-footer">
       <div class="container footer-content">
-        <p>&copy; <span id="year"></span> Milpitas Community Musallah. All rights reserved.</p>
+        <p class="footer-contact">Contact: <a href="tel:+14082027810">(408) 202-7810</a></p>
+        <p>&copy; <span id="year"></span> Milpitas Community Masjid. All rights reserved.</p>
       </div>
     </footer>
 
@@ -151,7 +166,7 @@
       const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById("prayer-date").textContent = dateStr;
 
-      // ——— Prayer times: Adhan from API, Iqamah fixed by musallah ———
+      // ——— Prayer times: Adhan from API, Iqamah fixed by masjid ———
       const IQAMAH = {
         Fajr: '6:05 AM',
         Dhuhr: '12:30 PM',
@@ -182,10 +197,9 @@
           city: 'Milpitas',
           country: 'United States',
           state: 'California',
-          // Custom method with 18° angles for Fajr and Isha
           method: '99',
-          fajr: '18',
-          isha: '18'
+          methodSettings: '18,null,18',
+          school: '1'
         });
         const url = 'https://api.aladhan.com/v1/timingsByCity?' + params.toString();
 
