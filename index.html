@@ -165,7 +165,10 @@
           city: 'Milpitas',
           country: 'United States',
           state: 'California',
-          method: '2' // Islamic Society of North America
+          // Custom method with 18° angles for Fajr and Isha
+          method: '99',
+          fajr: '18',
+          isha: '18'
         });
         const url = 'https://api.aladhan.com/v1/timingsByCity?' + params.toString();
 
@@ -208,4 +211,3 @@
     </script>
   </body>
 </html>
-
