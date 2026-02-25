@@ -88,30 +88,45 @@ body {
   white-space: nowrap;
   margin-top: 1rem;
   padding: 0.4rem 0;
-  position: relative;
 }
 
 .announcement-track {
-  display: inline-flex;
+  display: inline-block;
+  -webkit-animation: scroll-left 20s linear infinite;
+  -moz-animation: scroll-left 20s linear infinite;
+  -o-animation: scroll-left 20s linear infinite;
   animation: scroll-left 20s linear infinite;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .announcement-track span {
-  flex-shrink: 0;
-  padding: 0 4rem;
+  display: inline;
+  padding: 0 3rem;
   font-size: 0.85rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   letter-spacing: 0.01em;
 }
 
+@-webkit-keyframes scroll-left {
+  from { -webkit-transform: translateX(0); transform: translateX(0); }
+  to { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+}
+
+@-moz-keyframes scroll-left {
+  from { -moz-transform: translateX(0); transform: translateX(0); }
+  to { -moz-transform: translateX(-50%); transform: translateX(-50%); }
+}
+
+@-o-keyframes scroll-left {
+  from { -o-transform: translateX(0); transform: translateX(0); }
+  to { -o-transform: translateX(-50%); transform: translateX(-50%); }
+}
+
 @keyframes scroll-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 main {
@@ -443,7 +458,7 @@ tbody tr:hover {
   }
 
   .announcement-track span {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     padding: 0 2rem;
   }
 
