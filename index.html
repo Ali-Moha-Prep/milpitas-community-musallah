@@ -6,7 +6,7 @@
     <title>Milpitas Community Masjid</title>
     <meta name="description" content="Milpitas Community Masjid - Daily prayer times, Jumu'ah, and community services at 90 Dempsey Rd, Milpitas, CA 95035." />
     <meta property="og:title" content="Milpitas Community Masjid" />
-    <meta property="og:description" content="A place for prayer, community, and connection. View daily prayer times and support the musallah." />
+    <meta property="og:description" content="A place for prayer, community, and connection. View daily prayer times and support the masjid." />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -28,7 +28,7 @@
         <div class="container">
           <h2>Prayer Times</h2>
           <p class="section-note">
-            Adhan times are updated live daily. Iqamah times are set by the musallah.
+            Adhan times are updated live daily. Iqamah times are set by the masjid.
           </p>
           <div class="table-wrapper">
             <table>
@@ -138,7 +138,7 @@
 
     <footer class="site-footer">
       <div class="container footer-content">
-        <p>&copy; <span id="year"></span> Milpitas Community Musallah. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> Milpitas Community Masjid. All rights reserved.</p>
       </div>
     </footer>
 
@@ -151,7 +151,7 @@
       const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById("prayer-date").textContent = dateStr;
 
-      // ——— Prayer times: Adhan from API, Iqamah fixed by musallah ———
+      // ——— Prayer times: Adhan from API, Iqamah fixed by masjid ———
       const IQAMAH = {
         Fajr: '6:05 AM',
         Dhuhr: '12:30 PM',
