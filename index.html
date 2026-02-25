@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Milpitas Community Masjid</title>
+    <meta name="description" content="Milpitas Community Masjid - Daily prayer times, Jumu'ah, and community services at 90 Dempsey Rd, Milpitas, CA 95035." />
+    <meta property="og:title" content="Milpitas Community Masjid" />
+    <meta property="og:description" content="A place for prayer, community, and connection. View daily prayer times and support the musallah." />
+    <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-content">
         <div class="logo-wrapper">
-          <!-- Replace logo.png with your actual logo file name -->
           <img src="logo.png.jpeg" alt="Milpitas Community Musallah Logo" class="logo" />
         </div>
         <div class="title-wrapper">
@@ -25,13 +28,8 @@
         <div class="container">
           <h2>Prayer Times</h2>
           <p class="section-note">
-            <!-- Replace this line with any short note about how often timings are updated -->
-            Timings are updated regularly. Please refer to the latest schedule below.
+            Adhan times are updated live daily. Iqamah times are set by the musallah.
           </p>
-          <!--
-            Update the rows in this table with your actual timings.
-            You can add/remove rows as needed (e.g., Taraweeh in Ramadan).
-          -->
           <div class="table-wrapper">
             <table>
               <thead>
@@ -75,7 +73,7 @@
               </tbody>
             </table>
           </div>
-          <p class="section-note prayer-times-note">Adhan times from API. Iqamah times are set by the musallah.</p>
+          <p class="section-note prayer-times-note" id="prayer-date"></p>
         </div>
       </section>
 
@@ -88,12 +86,17 @@
               programs, and serve the local community.
             </p>
             <ul class="donation-list">
-              <li>Zelle: <span class="highlight">[90dempsey@gmail.com / Write a check to: MCM]</span></li>
-              <!-- Add any additional donation options if you have them -->
+              <li>Zelle: <span class="highlight">90dempsey@gmail.com</span></li>
+              <li>Check: <span class="highlight">Write a check to MCM</span></li>
             </ul>
+            <p class="tax-deductible-notice">
+              Donations are tax deductible! Taxpayer ID # 88-2365109
+            </p>
+            <p class="standalone-note">
+              This is a standalone masjid and is not backed by any organization.
+            </p>
           </div>
           <div class="donation-qr-wrapper">
-            <!-- Replace donation-qr.png with your actual Zelle QR/scanner image file name -->
             <img src="donation-qr.png.jpeg" alt="Zelle Donation QR Code" class="donation-qr" />
             <p class="donation-caption">Scan to donate via Zelle</p>
           </div>
@@ -103,18 +106,24 @@
       <section class="section section-location">
         <div class="container">
           <h2>Location</h2>
-          <!-- Replace the placeholder address below with the actual musallah address -->
           <p class="address">
             90 Dempsey Rd, Milpitas, CA 95035
           </p>
-          <p class="section-note">
-            <!-- Optional: add parking / entrance notes here -->
-            Entrance and parking details can be added here.
+          <p class="section-note parking-note">
+            Please be considerate when parking. Do not block driveways or pathways, and park in a manner that allows others to enter and exit with ease. Jazakum Allahu Khairan.
           </p>
-          <!--
-            Optional: When you have the exact address, you can generate an embedded Google Map
-            and paste the iframe here instead of (or in addition to) the link below.
-          -->
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.2!2d-121.9!3d37.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z90+Dempsey+Rd+Milpitas+CA!5e0!3m2!1sen!2sus!4v1700000000000"
+              width="100%"
+              height="250"
+              style="border:0; border-radius: 18px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Milpitas Community Masjid Location"
+            ></iframe>
+          </div>
           <a
             href="https://maps.app.goo.gl/tqur8Z7AS14meRub6"
             target="_blank"
@@ -137,6 +146,11 @@
       // Set current year in footer
       document.getElementById("year").textContent = new Date().getFullYear();
 
+      // Show today's date next to prayer times
+      const today = new Date();
+      const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById("prayer-date").textContent = dateStr;
+
       // ——— Prayer times: Adhan from API, Iqamah fixed by musallah ———
       const IQAMAH = {
         Fajr: '6:05 AM',
@@ -149,7 +163,10 @@
 
       function format24to12(time24) {
         if (!time24 || time24.length < 5) return time24;
-        const [h, m] = time24.split(':').map(Number);
+        // Strip any timezone suffix like " (PST)" from API response
+        const clean = time24.split(' ')[0];
+        const [h, m] = clean.split(':').map(Number);
+        if (isNaN(h) || isNaN(m)) return time24;
         const period = h >= 12 ? 'PM' : 'AM';
         const h12 = h % 12 || 12;
         return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + period;
