@@ -74,10 +74,23 @@ body {
   letter-spacing: 0.03em;
 }
 
+.title-wrapper {
+  text-align: center;
+}
+
 .tagline {
-  margin: 0.25rem 0 0;
-  font-size: 0.95rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
   opacity: 0.9;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.jumuah-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 /* Scrolling announcement ribbon inside header */
