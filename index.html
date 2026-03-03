@@ -17,16 +17,16 @@
           <img src="logo.png.jpeg" alt="Milpitas Community Masjid Logo" class="logo" />
         </div>
         <div class="title-wrapper">
-          <h1>Milpitas Community Masjid</h1>
-          <p class="tagline">A place for prayer, community, and connection</p>
+          <h1>Milpitas Community Masjid (MCM)</h1>
+          <p class="tagline">A center dedicated to achieving true success through faith, worship, education, and the sincere fulfillment of human rights. We are committed to community outreach as well as spiritual and human development.</p>
         </div>
       </div>
       <div class="announcement-banner" aria-label="Announcement">
         <div class="announcement-track">
-          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner and Qiyam.</span>
-          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner and Qiyam.</span>
-          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner and Qiyam.</span>
-          <span>Shabguzari is held every Saturday from Asr to Isha, followed by dinner and Qiyam.</span>
+          <span>MCM invites you to join our Weekly Dawah Effort every Saturday between Maghrib and Isha followed by Qiyaam/Shabguzaari/night vigil until Sunday Fajr</span>
+          <span>MCM invites you to join our Weekly Dawah Effort every Saturday between Maghrib and Isha followed by Qiyaam/Shabguzaari/night vigil until Sunday Fajr</span>
+          <span>MCM invites you to join our Weekly Dawah Effort every Saturday between Maghrib and Isha followed by Qiyaam/Shabguzaari/night vigil until Sunday Fajr</span>
+          <span>MCM invites you to join our Weekly Dawah Effort every Saturday between Maghrib and Isha followed by Qiyaam/Shabguzaari/night vigil until Sunday Fajr</span>
         </div>
       </div>
     </header>
@@ -74,12 +74,13 @@
                   <td id="iqamah-isha">8:00 PM</td>
                 </tr>
                 <tr class="jumuah-row">
-                  <td>Jumu'ah</td>
-                  <td id="adhan-jumuah">—</td>
-                  <td id="iqamah-jumuah">1:30 PM</td>
+                  <td>Jumu'ah*</td>
+                  <td id="adhan-jumuah">1:30 PM</td>
+                  <td id="iqamah-jumuah">2:00 PM</td>
                 </tr>
               </tbody>
             </table>
+            <p class="jumuah-note">*After Adhan, talk in English will be given</p>
           </div>
         </div>
       </section>
@@ -149,7 +150,7 @@
 
     <footer class="site-footer">
       <div class="container footer-content">
-        <p class="footer-contact">Contact: <a href="tel:+14082027810">(408) 202-7810</a></p>
+        <p class="footer-contact">Contact: coming soon</p>
         <p>&copy; <span id="year"></span> Milpitas Community Masjid. All rights reserved.</p>
       </div>
     </footer>
@@ -170,7 +171,7 @@
         Asr: '4:45 PM',
         Maghrib: '+5 minutes',
         Isha: '8:00 PM',
-        Jumuah: '1:30 PM'
+        Jumuah: '2:00 PM'
       };
 
       function format24to12(time24) {
@@ -211,7 +212,7 @@
           setPrayerCell('adhan-asr', format24to12(t.Asr));
           setPrayerCell('adhan-maghrib', format24to12(t.Maghrib));
           setPrayerCell('adhan-isha', format24to12(t.Isha));
-          setPrayerCell('adhan-jumuah', format24to12(t.Dhuhr));
+          setPrayerCell('adhan-jumuah', '1:30 PM');
 
           setPrayerCell('iqamah-fajr', IQAMAH.Fajr);
           setPrayerCell('iqamah-dhuhr', IQAMAH.Dhuhr);
@@ -225,7 +226,7 @@
           setPrayerCell('adhan-asr', '4:15 PM');
           setPrayerCell('adhan-maghrib', 'Sunset');
           setPrayerCell('adhan-isha', '7:23 PM');
-          setPrayerCell('adhan-jumuah', '12:21 PM');
+          setPrayerCell('adhan-jumuah', '1:30 PM');
           setPrayerCell('iqamah-fajr', IQAMAH.Fajr);
           setPrayerCell('iqamah-dhuhr', IQAMAH.Dhuhr);
           setPrayerCell('iqamah-asr', IQAMAH.Asr);
