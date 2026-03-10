@@ -488,6 +488,10 @@ tbody tr:hover {
     margin-top: 0.9rem;
   }
 
+  .section-donation {
+    text-align: center;
+  }
+
   .section-location {
     text-align: center;
   }
